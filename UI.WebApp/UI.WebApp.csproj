@@ -177,6 +177,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\CreateTodo.cshtml" />
     <Content Include="Views\Home\CreateCategory.cshtml" />
+    <Content Include="Views\Home\DeleteTodo.cshtml" />
+    <Content Include="Views\Home\EditTodo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

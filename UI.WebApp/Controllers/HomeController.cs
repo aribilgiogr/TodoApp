@@ -1,4 +1,5 @@
-﻿using Business.Services;
+﻿using Business;
+using Business.Services;
 using Core.Abstracts.IServices;
 using Core.Concretes.DTOs;
 using System.Web.Mvc;
@@ -45,6 +46,49 @@ namespace UI.WebApp.Controllers
                 return RedirectToAction("Index");
             }
             return View(categoryCreateDto);
+        }
+
+        public ActionResult DeleteTodo(int id)
+        {
+            var todo = service.GetTodoById(id);
+            if (todo == null)
+            {
+                return HttpNotFound();
+            }
+            return View(todo);
+        }
+
+
+        [HttpPost]
+        public ActionResult DeleteTodoConfirmed(int id)
+        {
+            service.DeleteTodo(id);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult EditTodo(int id)
+        {
+            var todo = service.GetTodoById(id);
+            if (todo == null)
+            {
+                return HttpNotFound();
+            }
+            var updated = AutoMapperConfig.Mapper.Map<TodoCreateDto>(todo);
+            ViewData["Categories"] = new SelectList(service.GetCategories(), "Id", "Name", updated.CategoryId);
+            return View(updated);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditTodo(int id, TodoCreateDto todoUpdateDto)
+        {
+            ViewData["Categories"] = new SelectList(service.GetCategories(), "Id", "Name", todoUpdateDto.CategoryId);
+            if (ModelState.IsValid)
+            {
+                service.UpdateTodo(id, todoUpdateDto);
+                return RedirectToAction("Index");
+            }
+            return View(todoUpdateDto);
         }
     }
 }

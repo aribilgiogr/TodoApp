@@ -29,9 +29,36 @@ namespace Business.Services
             }
         }
 
-        public void DeleteCategory(int id) => throw new System.NotImplementedException();
+        public void DeleteCategory(int id)
+        {
+            using (IUnitOfWork uow = UnitOfWorkFactory.Create())
+            {
+                var category = uow.CategoryRepository.Find(id);
+                if (category != null)
+                {
+                    var todosInCategory = uow.TodoRepository.FindMany(t => t.CategoryId == id);
+                    foreach (var todo in todosInCategory)
+                    {
+                        uow.TodoRepository.Remove(todo);
+                    }
+                    uow.CategoryRepository.Remove(category);
+                    uow.Commit();
+                }
+            }
+        }
 
-        public void DeleteTodo(int id) => throw new System.NotImplementedException();
+        public void DeleteTodo(int id)
+        {
+            using (IUnitOfWork uow = UnitOfWorkFactory.Create())
+            {
+                var todo = uow.TodoRepository.Find(id);
+                if (todo != null)
+                {
+                    uow.TodoRepository.Remove(todo);
+                    uow.Commit();
+                }
+            }
+        }
 
         public IEnumerable<CategoryDto> GetCategories()
         {
@@ -66,8 +93,33 @@ namespace Business.Services
             }
         }
 
-        public void UpdateCategory(int id, CategoryCreateDto categoryUpdateDto) => throw new System.NotImplementedException();
+        public void UpdateCategory(int id, CategoryCreateDto categoryUpdateDto)
+        {
+            using(IUnitOfWork uow = UnitOfWorkFactory.Create())
+            {
+                var category = uow.CategoryRepository.Find(id);
+                if (category != null)
+                {
+                    AutoMapperConfig.Mapper.Map(categoryUpdateDto, category);
+                    uow.CategoryRepository.Update(category);
+                    uow.Commit();
+                }
+            }
+        }
 
-        public void UpdateTodo(int id, TodoCreateDto todoUpdateDto) => throw new System.NotImplementedException();
+        public void UpdateTodo(int id, TodoCreateDto todoUpdateDto)
+        {
+            using (IUnitOfWork uow = UnitOfWorkFactory.Create())
+            {
+                var todo = uow.TodoRepository.Find(id);
+                if (todo != null)
+                {
+                    // DTO -> Entity mapping
+                    AutoMapperConfig.Mapper.Map(todoUpdateDto, todo);
+                    uow.TodoRepository.Update(todo);
+                    uow.Commit();
+                }
+            }
+        }
     }
 }

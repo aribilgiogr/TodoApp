@@ -56,7 +56,7 @@
             </td>
             <td>
                 <a href="@Url.Action("DeleteTodo","Home",new {@id=item.Id})" class="btn btn-outline-danger btn-sm">Sil</a>
-                <a href="@Url.Action("UpdateTodo","Home",new {@id=item.Id})" class="btn btn-outline-info btn-sm">Güncelle</a>
+                <a href="@Url.Action("EditTodo","Home",new {@id=item.Id})" class="btn btn-outline-info btn-sm">Güncelle</a>
                 <a href="@Url.Action("MarkTodo","Home",new {@id=item.Id})" class="btn btn-outline-success btn-sm">
                     @(item.IsCompleted? "❌ Geri Al" : "✔️ Tamamla")
                 </a>

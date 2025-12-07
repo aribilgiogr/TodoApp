@@ -31,6 +31,7 @@ namespace Business
                 cfg.CreateMap<TodoCreateDto, Todo>();
                 cfg.CreateMap<CategoryCreateDto, Category>();
                 cfg.CreateMap<Category, CategoryDto>();
+                cfg.CreateMap<TodoCreateDto, TodoDto>().ReverseMap();
             });
             mapper = config.CreateMapper();
         }
