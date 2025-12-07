@@ -45,15 +45,17 @@
     <Compile Include="Abstracts\Bases\BaseEntity.cs" />
     <Compile Include="Abstracts\IRepositories\ICategoryRepository.cs" />
     <Compile Include="Abstracts\IRepositories\ITodoRepository.cs" />
+    <Compile Include="Abstracts\IServices\ITodoService.cs" />
     <Compile Include="Abstracts\IUnitOfWork.cs" />
+    <Compile Include="Concretes\DTOs\CategoryCreateDto.cs" />
+    <Compile Include="Concretes\DTOs\CategoryDto.cs" />
+    <Compile Include="Concretes\DTOs\TodoCreateDto.cs" />
     <Compile Include="Concretes\DTOs\TodoDto.cs" />
     <Compile Include="Concretes\Entities\Category.cs" />
     <Compile Include="Concretes\Entities\Todo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Abstracts\IServices\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Project>{24DE073E-4A03-4EA9-880B-51E281D07BCD}</Project>

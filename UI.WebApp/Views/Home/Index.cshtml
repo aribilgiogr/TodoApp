@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Core.Concretes.DTOs.TodoDto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Görevlerim</h2>
+<p>
+    @Html.ActionLink("Görev Ekle", "CreateTodo", "Home", new { }, new { @class = "btn btn-primary btn-sm" })
+    @Html.ActionLink("Kategori Ekle", "CreateCategory", "Home", new { }, new { @class = "btn btn-primary btn-sm" })
+</p>
+<hr />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsCompleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompletedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCompleted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompletedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                <a href="@Url.Action("DeleteTodo","Home",new {@id=item.Id})" class="btn btn-outline-danger btn-sm">Sil</a>
+                <a href="@Url.Action("UpdateTodo","Home",new {@id=item.Id})" class="btn btn-outline-info btn-sm">Güncelle</a>
+                <a href="@Url.Action("MarkTodo","Home",new {@id=item.Id})" class="btn btn-outline-success btn-sm">
+                    @(item.IsCompleted? "❌ Geri Al" : "✔️ Tamamla")
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>
